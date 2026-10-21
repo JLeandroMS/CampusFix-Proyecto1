@@ -13,8 +13,9 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final incidents = context.watch<IncidentState>();
-    if (incidents.loading)
+    if (incidents.loading) {
       return const Center(child: CircularProgressIndicator());
+    }
     if (incidents.error != null) return Center(child: Text(incidents.error!));
     final data = DashboardState(incidents.items);
     return SingleChildScrollView(

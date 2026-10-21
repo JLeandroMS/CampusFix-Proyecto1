@@ -6,7 +6,7 @@ call flutter analyze
 if errorlevel 1 goto error
 call flutter test
 if errorlevel 1 goto error
-call flutter build web --dart-define=USE_EMULATORS=true
+call flutter build web --no-web-resources-cdn --dart-define=USE_EMULATORS=true
 if errorlevel 1 goto error
 call npm ci
 if errorlevel 1 goto error

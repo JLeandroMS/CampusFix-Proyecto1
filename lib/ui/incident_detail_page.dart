@@ -55,11 +55,12 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
       uploadedPath = null;
       if (mounted) message(context, 'Seguimiento agregado.');
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         message(
           context,
           'No se pudo publicar. Revise conexión y estado de la incidencia.',
         );
+      }
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -69,7 +70,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   Widget build(BuildContext context) {
     final state = context.watch<IncidentState>();
     final matches = state.items.where((i) => i.id == widget.id);
-    if (matches.isEmpty)
+    if (matches.isEmpty) {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -82,6 +83,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
           ],
         ),
       );
+    }
     final incident = matches.first;
     final canComment = ![
       IncidentStatus.cerrada,
@@ -209,23 +211,26 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                                   final service = context
                                       .read<EvidenceService>();
                                   final file = await service.pick();
-                                  if (file != null)
+                                  if (file != null) {
                                     uploadedPath = await service.upload(
                                       widget.id,
                                       widget.user.id,
                                       file,
                                     );
-                                  if (mounted && uploadedPath != null)
+                                  }
+                                  if (context.mounted && uploadedPath != null) {
                                     message(
                                       context,
                                       'Fotografía cargada. Publique el comentario para asociarla.',
                                     );
+                                  }
                                 } catch (e) {
-                                  if (context.mounted)
+                                  if (context.mounted) {
                                     message(
                                       context,
                                       'No se pudo cargar la fotografía: $e',
                                     );
+                                  }
                                 } finally {
                                   if (mounted) setState(() => busy = false);
                                 }
@@ -250,13 +255,15 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                   stream: context.read<IncidentService>().comments(widget.id),
                   builder: (context, s) {
-                    if (s.hasError)
+                    if (s.hasError) {
                       return const Text('No se pudo cargar el seguimiento.');
+                    }
                     if (!s.hasData) return const LinearProgressIndicator();
-                    if (s.data!.docs.isEmpty)
+                    if (s.data!.docs.isEmpty) {
                       return const Text(
                         'Todavía no hay comentarios ni fotografías.',
                       );
+                    }
                     return Column(
                       children: [
                         for (final doc in s.data!.docs) _comment(doc.data()),
@@ -280,8 +287,9 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                   stream: context.read<IncidentService>().events(widget.id),
                   builder: (context, s) {
-                    if (s.hasError)
+                    if (s.hasError) {
                       return const Text('No se pudo cargar el historial.');
+                    }
                     if (!s.hasData) return const LinearProgressIndicator();
                     return Column(
                       children: [
@@ -336,8 +344,9 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
         catalog: catalog,
       ),
     );
-    if (mounted && result == true)
+    if (mounted && result == true) {
       message(context, 'Cambio registrado en el historial.');
+    }
   }
 }
 
@@ -360,8 +369,9 @@ class _PrivatePhotoState extends State<PrivatePhoto> {
   @override
   void didUpdateWidget(PrivatePhoto oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.path != widget.path)
+    if (oldWidget.path != widget.path) {
       bytes = context.read<EvidenceService>().load(widget.path);
+    }
   }
 
   @override
@@ -480,10 +490,11 @@ class _ChangeDialogState extends State<ChangeDialog> {
                     StreamBuilder<List<UserProfile>>(
                       stream: widget.catalog.users(),
                       builder: (context, s) {
-                        if (s.hasError)
+                        if (s.hasError) {
                           return const Text(
                             'No se pudieron cargar los técnicos.',
                           );
+                        }
                         final list = (s.data ?? <UserProfile>[])
                             .where((u) => u.role == UserRole.tecnico)
                             .toList();
@@ -558,10 +569,12 @@ class _ChangeDialogState extends State<ChangeDialog> {
                       );
                       if (context.mounted) Navigator.pop(context, true);
                     } catch (_) {
-                      if (mounted)
+                      if (mounted) {
                         setState(
-                          () => error = 'No se pudo guardar. Compruebe permisos, conexión y si otro usuario modificó el reporte.',
+                          () => error =
+                              'No se pudo guardar. Compruebe permisos, conexión y si otro usuario modificó el reporte.',
                         );
+                      }
                     } finally {
                       if (mounted) setState(() => busy = false);
                     }

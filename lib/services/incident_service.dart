@@ -13,15 +13,17 @@ class IncidentService {
 
   Stream<List<Incident>> watch(UserProfile user) {
     Query<Map<String, dynamic>> query = incidents;
-    if (user.role == UserRole.reportante)
+    if (user.role == UserRole.reportante) {
       query = query.where('creatorId', isEqualTo: user.id);
-    if (user.role == UserRole.tecnico)
+    }
+    if (user.role == UserRole.tecnico) {
       query = query.where(
         Filter.or(
           Filter('technicianId', isEqualTo: user.id),
           Filter('creatorId', isEqualTo: user.id),
         ),
       );
+    }
     return query.snapshots().map(
       (s) =>
           s.docs.map((d) => Incident.fromMap(d.id, d.data())).toList()

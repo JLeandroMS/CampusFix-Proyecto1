@@ -4,9 +4,20 @@ Proyecto IF0009 · Universidad de Costa Rica, Sede del Sur · II Ciclo 2026.
 
 ## Qué recibes y qué falta verificar
 
-El código cubre las funciones de las historias del enunciado y prepara la configuración de publicación. La aceptación final de las 20 historias requiere completar las verificaciones pendientes. Las reglas se probaron contra emuladores. **No se ha compilado ni desplegado la aplicación Flutter**: la revisión automática de este entorno bloqueó el arranque del SDK al detectar una solicitud a metadatos de nube. El formateador Dart sí revisó la sintaxis, pero eso no sustituye `flutter analyze`, `flutter test` ni una compilación. Los resultados exactos están en `docs/PRUEBAS.md`.
+La aplicación compiló correctamente con Flutter 3.47.7 / Dart 3.13.5. `flutter analyze` terminó sin incidencias y las 8 pruebas Flutter pasaron. También se aprobaron 28 pruebas de reglas Firebase y 12 comprobaciones independientes de dominio. Los resultados están en `docs/PRUEBAS.md`. La publicación real requiere conectar tu proyecto Firebase.
 
-No hay una URL pública ni un repositorio remoto inventados. Antes de entregar al profesor hay que ejecutar las verificaciones Flutter, conectar un proyecto Firebase propio, publicarlo y tomar capturas reales. El ZIP conserva un repositorio Git local con commits auténticos de esta implementación.
+No hay una URL pública ni un repositorio remoto inventados. Antes de entregar al profesor hay que conectar un proyecto Firebase propio, publicarlo y completar la verificación en ese entorno. El ZIP conserva un repositorio Git local con commits auténticos de esta implementación.
+
+## Prueba rápida con el build incluido (sin instalar Flutter)
+
+El ZIP incluye `build/web`, compilado para **emuladores locales**, no para producción.
+
+1. Instala Node.js 22 y JDK 21.
+2. Ejecuta `scripts\emuladores.bat` y espera a que indique que los emuladores están listos.
+3. En otra ventana ejecuta `scripts\abrir_build_local.bat`.
+4. Abre http://127.0.0.1:5000 y usa las cuentas de demostración indicadas abajo.
+
+El navegador todavía necesita Internet para cargar los SDK oficiales de Firebase. Gráficos CanvasKit y tipografías están incluidos localmente. Para editar/recompilar el código utiliza la opción siguiente.
 
 ## Opción 1: probar localmente sin una cuenta Firebase
 
@@ -55,7 +66,7 @@ Con los emuladores anteriores detenidos para no ocupar puertos:
 flutter pub get
 flutter analyze
 flutter test
-flutter build web --dart-define=USE_EMULATORS=true
+flutter build web --no-web-resources-cdn --dart-define=USE_EMULATORS=true
 npm ci
 npm run test:rules
 ```

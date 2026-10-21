@@ -1,0 +1,102 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+⬢  emulators: firebase-tools will drop support for Java version < 21 soon in firebase-tools@15. Please install a JDK at version 21 or above to get a compatible runtime.
+i  emulators: Starting emulators: auth, firestore, storage
+i  emulators: Detected demo project ID "demo-campusfix", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+i  firestore: Firestore Emulator logging to firestore-debug.log
+✔  firestore: Firestore Emulator UI websocket is running on 9150.
+i  Running script: node tests/browser_smoke.mjs
+Emuladores preparados. Usuarios: admin, tecnico, usuario @campusfix.test. Clave local: CampusFix2026!
+BODY Running in emulator mode. Do not use with production credentials.
+SEMANTICS 1
+DOM CampusFix
+Un campus mejor, reporte a reporte.
+Bienvenido de nuevo
+Mostrar u ocultar contraseña
+Ingresar
+Registrarme como reportante
+Olvidé mi contraseña
+
+Running in emulator mode. Do not use with production credentials.
+INPUTS [
+  { type: 'text', label: 'Correo electrónico' },
+  { type: 'password', label: 'Contraseña' }
+]
+AFTER LOGIN Incidencias
+Cambiar tema
+Cerrar sesión
+CampusFix Servicios del campus
+Incidencias
+Dashboard
+Administración
+Mi perfil
+Cada reporte es el inicio de una mejora.
+Cuidemos nuestro campus
+Nueva incidencia
+Categoría Todas
+Estado Todos
+Prioridad Todas
+Responsable Todos
+0 reportes
+Exportar JSON
+No hay incidencias que coincidan. Cree un reporte o cambie los filtros.
+Administrador administrador
+
+Running in emulator mode. Do not use with production credentials.
+LOGIN OK
+ADMIN Incidencias
+Cambiar tema
+Cerrar sesión
+CampusFix Servicios del campus
+Incidencias
+Dashboard
+Administración
+Mi perfil
+Cada reporte es el inicio de una mejora.
+Cuidemos nuestro campus
+Nueva incidencia
+Categoría Todas
+Estado Todos
+Prioridad Todas
+Responsable Todos
+0 reportes
+Exportar JSON
+No hay incidencias que coincidan. Cree un reporte o cambie los filtros.
+Administrador administrador
+
+Running in emulator mode. Do not use with production credentials.
+DASHBOARD OK
+DROPDOWNS [ { role: 'button', label: null, text: 'Categoría' } ]
+OPTIONS Running in emulator mode. Do not use with production credentials.
+REPORT Incidencias
+Cambiar tema
+Cerrar sesión
+CampusFix Servicios del campus
+Incidencias
+Dashboard
+Administración
+Mi perfil
+Volver al listado
+Revisar
+Rechazar
+Cancelar reporte
+2000 characters remaining
+Adjuntar fotografía
+Publicar seguimiento
+Historial y auditoría REPORTADA · Incidencia registrada. 21/10/2026 00:23 Autor: admin Responsable: Sin asignar · Categoría: iluminacion · Prioridad: media
+Administrador administrador
+Incidencia registrada.
+
+Running in emulator mode. Do not use with production credentials.
+CREATE OK
+REVIEW OK
+ASSIGN OK
+REQUESTFAILED http://127.0.0.1:8080/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-campusfix%2Fdatabases%2F(default)&RID=rpc&SID=FCJZV4HvxhZEtdh28OOfAA%3D%3D&AID=0&CI=0&TYPE=xmlhttp&zx=rnisg4nbxz7n&t=1 net::ERR_ABORTED
+LOGOUT OK
+✔  Script exited successfully (code 0)
+i  emulators: Shutting down emulators.
+i  firestore: Stopping Firestore Emulator
+i  auth: Stopping Authentication Emulator
+i  storage: Stopping Storage Emulator
+i  hub: Stopping emulator hub
+i  logging: Stopping Logging Emulator
+⚠  emulators: firebase-tools will drop support for Java version < 21 soon in firebase-tools@15. Please install a JDK at version 21 or above to get a compatible runtime.

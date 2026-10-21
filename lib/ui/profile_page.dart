@@ -59,11 +59,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             await context.read<AuthService>().updateName(
                               name.text,
                             );
-                            if (context.mounted)
+                            if (context.mounted) {
                               message(context, 'Perfil actualizado.');
+                            }
                           } catch (_) {
-                            if (context.mounted)
+                            if (context.mounted) {
                               message(context, 'No se pudo guardar el perfil.');
+                            }
                           } finally {
                             if (mounted) setState(() => busy = false);
                           }

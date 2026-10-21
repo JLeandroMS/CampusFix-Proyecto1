@@ -11,12 +11,14 @@
 - [x] Manual de usuario e instrucciones para Windows.
 - [x] Repositorio Git local con commits significativos.
 - [x] Evidencia de 28 pruebas de reglas y 12 comprobaciones de dominio.
-- [x] Pruebas Flutter y workflow preparados.
+- [x] 8 pruebas Flutter aprobadas y workflow preparado.
+- [x] Análisis Flutter sin incidencias.
+- [x] Build Web release local incluido en el ZIP.
+- [x] Flujo de navegador local: acceso, dashboard inicial, creación, revisión, clasificación, asignación y salida.
 
 ## Pendiente antes de considerar la entrega completa
 
-- [ ] Ejecutar flutter pub get, flutter analyze y flutter test; corregir cualquier hallazgo.
-- [ ] Generar build/web y completar el guion visual/multiusuario.
+- [ ] Completar el guion de aceptación en el Firebase real.
 - [ ] Configurar el proyecto Firebase real y CORS.
 - [ ] Crear primer administrador y categorías en producción.
 - [ ] Publicar con Firebase Hosting y comprobar la URL.
@@ -28,4 +30,4 @@ Repositorio remoto: **pendiente de crear/subir con la cuenta del equipo**.
 URL Firebase Hosting: **pendiente de despliegue real**.
 Integrantes: **completar por el equipo**.
 
-No se declara la solución 100 % validada: la compilación Flutter y la publicación quedaron pendientes por el bloqueo de ejecución y por requerir un proyecto externo del usuario.
+La compilación y las pruebas automatizadas se completaron. La publicación, el repositorio remoto y la aceptación en producción requieren las cuentas y el proyecto del equipo.

@@ -30,7 +30,8 @@ class IncidentState extends ChangeNotifier {
           onError: (Object e) {
             items = [];
             loading = false;
-            error = 'No fue posible cargar las incidencias. Compruebe conexión y permisos.';
+            error =
+                'No fue posible cargar las incidencias. Compruebe conexión y permisos.';
             notifyListeners();
           },
         );

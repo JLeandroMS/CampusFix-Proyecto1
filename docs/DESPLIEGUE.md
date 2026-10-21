@@ -2,7 +2,7 @@
 
 ## Estado actual
 
-No se creó ningún proyecto externo ni se publicó con una cuenta ajena. No existe una URL de entrega confirmada. La configuración preparada requiere tus valores reales y completar la verificación Flutter. La revisión automática bloqueó el arranque del SDK en este entorno por un intento de acceso a metadatos de nube; no se reintentó ese acceso.
+No se creó ningún proyecto externo ni se publicó con una cuenta ajena. No existe una URL de entrega confirmada. La configuración requiere tus valores reales. La compilación y las pruebas Flutter ya se completaron. La detección automática de Azure del SDK se omitió utilizando su opción estándar CI=true, sin consultar metadatos.
 
 ## 1. Preparar tu proyecto
 
@@ -90,7 +90,7 @@ Equivalente manual:
 flutter pub get
 flutter analyze
 flutter test
-flutter build web --release --dart-define-from-file=config/firebase.json
+flutter build web --no-web-resources-cdn --release --dart-define-from-file=config/firebase.json
 npx firebase deploy --project TU_PROJECT_ID --only firestore:rules,firestore:indexes,storage,hosting
 ```
 

@@ -8,12 +8,13 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.47.7
           cache: true
       - run: flutter pub get
       - run: dart format --output=none --set-exit-if-changed lib test
       - run: flutter analyze
       - run: flutter test
-      - run: flutter build web --dart-define=USE_EMULATORS=true
+      - run: flutter build web --no-web-resources-cdn --dart-define=USE_EMULATORS=true
   rules:
     runs-on: ubuntu-latest
     steps:

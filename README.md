@@ -2,7 +2,7 @@
 
 Aplicación Flutter Web para reportar, clasificar, asignar y seguir incidencias del campus. Proyecto Integrador 1 de IF0009, Universidad de Costa Rica, Sede del Sur.
 
-**Empieza por [INICIAR_AQUI.md](INICIAR_AQUI.md).** La implementación está preparada; la compilación Flutter y el despliegue real siguen pendientes de verificación. No se presenta el prototipo como evidencia de una aplicación ejecutada.
+**Empieza por [INICIAR_AQUI.md](INICIAR_AQUI.md).** La aplicación compila para Web, el análisis Flutter no reporta incidencias y las 8 pruebas Flutter pasan. El ZIP incluye un build para emuladores locales. El despliegue real sigue pendiente de conectar el Firebase del equipo.
 
 ## Tecnologías y responsabilidades
 

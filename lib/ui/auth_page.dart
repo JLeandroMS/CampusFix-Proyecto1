@@ -41,7 +41,7 @@ class _AuthPageState extends State<AuthPage> {
         await auth.signIn(_email.text, _password.text);
       }
     } on FirebaseAuthException catch (e) {
-      if (mounted)
+      if (mounted) {
         setState(
           () => _error = switch (e.code) {
             'email-already-in-use' => 'Ese correo ya está registrado.',
@@ -51,11 +51,14 @@ class _AuthPageState extends State<AuthPage> {
             _ => 'No se pudo iniciar sesión. Verifique correo y contraseña.',
           },
         );
+      }
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         setState(
-          () => _error = 'No se completó el acceso. Revise su conexión y la configuración.',
+          () => _error =
+              'No se completó el acceso. Revise su conexión y la configuración.',
         );
+      }
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -114,8 +117,9 @@ class _AuthPageState extends State<AuthPage> {
                       prefixIcon: Icon(Icons.mail_outline),
                     ),
                     validator: (v) =>
-                        RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
-                            .hasMatch(v?.trim() ?? '')
+                        RegExp(
+                          r'^[^\s@]+@[^\s@]+\.[^\s@]+$',
+                        ).hasMatch(v?.trim() ?? '')
                         ? null
                         : 'Ingrese un correo válido.',
                   ),
@@ -185,8 +189,9 @@ class _AuthPageState extends State<AuthPage> {
                       onPressed: _busy
                           ? null
                           : () async {
-                              if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
-                                  .hasMatch(_email.text.trim())) {
+                              if (!RegExp(
+                                r'^[^\s@]+@[^\s@]+\.[^\s@]+$',
+                              ).hasMatch(_email.text.trim())) {
                                 message(
                                   context,
                                   'Escriba un correo válido primero.',
@@ -197,17 +202,19 @@ class _AuthPageState extends State<AuthPage> {
                                 await context.read<AuthService>().resetPassword(
                                   _email.text,
                                 );
-                                if (context.mounted)
+                                if (context.mounted) {
                                   message(
                                     context,
                                     'Si el correo está registrado, recibirá instrucciones.',
                                   );
+                                }
                               } catch (_) {
-                                if (context.mounted)
+                                if (context.mounted) {
                                   message(
                                     context,
                                     'No se pudo enviar la solicitud.',
                                   );
+                                }
                               }
                             },
                       child: const Text('Olvidé mi contraseña'),

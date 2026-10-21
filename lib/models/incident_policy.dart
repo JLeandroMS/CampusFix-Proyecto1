@@ -48,8 +48,9 @@ class IncidentPolicy {
     IncidentStatus target,
     String note,
   ) {
-    if (!allowed(i, u).contains(target))
+    if (!allowed(i, u).contains(target)) {
       throw StateError('Transición no autorizada.');
+    }
     if (note.trim().length < 10 || note.trim().length > 2000) {
       throw ArgumentError(
         'Escriba un motivo o solución de 10 a 2000 caracteres.',

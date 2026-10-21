@@ -64,7 +64,9 @@ class _IncidentFormPageState extends State<IncidentFormPage> {
     if (createdId != null) {
       message(
         context,
-        result != null ? 'Incidencia registrada.' : 'Reporte guardado; alguna foto falló. Puede adjuntarla desde el detalle.',
+        result != null
+            ? 'Incidencia registrada.'
+            : 'Reporte guardado; alguna foto falló. Puede adjuntarla desde el detalle.',
       );
       widget.onDone(createdId);
     }
@@ -132,10 +134,11 @@ class _IncidentFormPageState extends State<IncidentFormPage> {
                       StreamBuilder<List<Category>>(
                         stream: context.read<CatalogService>().categories(),
                         builder: (context, s) {
-                          if (s.hasError)
+                          if (s.hasError) {
                             return const Text(
                               'No se pudieron cargar las categorías.',
                             );
+                          }
                           final list = (s.data ?? <Category>[])
                               .where((c) => c.active)
                               .toList();
@@ -178,14 +181,16 @@ class _IncidentFormPageState extends State<IncidentFormPage> {
                                   final file = await context
                                       .read<EvidenceService>()
                                       .pick();
-                                  if (file != null && mounted)
+                                  if (file != null && mounted) {
                                     setState(() => photos.add(file));
+                                  }
                                 } catch (_) {
-                                  if (context.mounted)
+                                  if (context.mounted) {
                                     message(
                                       context,
                                       'No se pudo abrir la fotografía.',
                                     );
+                                  }
                                 }
                               },
                         icon: const Icon(Icons.add_photo_alternate_outlined),

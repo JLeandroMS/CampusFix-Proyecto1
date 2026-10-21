@@ -14,6 +14,6 @@ call flutter analyze
 if errorlevel 1 exit /b 1
 call flutter test
 if errorlevel 1 exit /b 1
-call flutter build web --release --dart-define-from-file=config/firebase.json
+call flutter build web --no-web-resources-cdn --release --dart-define-from-file=config/firebase.json
 if errorlevel 1 exit /b 1
 call npx firebase deploy --project %1 --only firestore:rules,firestore:indexes,storage,hosting

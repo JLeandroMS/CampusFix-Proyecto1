@@ -78,8 +78,9 @@ class _AdminPageState extends State<AdminPage> {
                 StreamBuilder<List<Category>>(
                   stream: service.categories(),
                   builder: (context, s) {
-                    if (s.hasError)
+                    if (s.hasError) {
                       return const Text('No se pudo cargar el catálogo.');
+                    }
                     if (!s.hasData) return const LinearProgressIndicator();
                     return Column(
                       children: [
@@ -132,12 +133,13 @@ class _AdminPageState extends State<AdminPage> {
                                                                   2,
                                                                   80,
                                                                 ) ==
-                                                                null)
+                                                                null) {
                                                               Navigator.pop(
                                                                 context,
                                                                 controller.text
                                                                     .trim(),
                                                               );
+                                                            }
                                                           },
                                                           child: const Text(
                                                             'Guardar',
@@ -151,7 +153,7 @@ class _AdminPageState extends State<AdminPage> {
                                             const Duration(milliseconds: 350),
                                             controller.dispose,
                                           );
-                                          if (updated != null && mounted)
+                                          if (updated != null && mounted) {
                                             perform(
                                               () => service.saveCategory(
                                                 c.id,
@@ -159,6 +161,7 @@ class _AdminPageState extends State<AdminPage> {
                                                 c.active,
                                               ),
                                             );
+                                          }
                                         },
                                   icon: const Icon(Icons.edit_outlined),
                                 ),
@@ -201,8 +204,9 @@ class _AdminPageState extends State<AdminPage> {
                 StreamBuilder<List<UserProfile>>(
                   stream: service.users(),
                   builder: (context, s) {
-                    if (s.hasError)
+                    if (s.hasError) {
                       return const Text('No se pudieron cargar los usuarios.');
+                    }
                     if (!s.hasData) return const LinearProgressIndicator();
                     return Column(
                       children: [
@@ -251,8 +255,10 @@ class _AdminPageState extends State<AdminPage> {
                                     onChanged: busy || u.id == me
                                         ? null
                                         : (role) async {
-                                            if (role == null || role == u.role)
+                                            if (role == null ||
+                                                role == u.role) {
                                               return;
+                                            }
                                             final confirmed = await showDialog<bool>(
                                               context: context,
                                               builder: (context) => AlertDialog(
@@ -286,13 +292,15 @@ class _AdminPageState extends State<AdminPage> {
                                                 ],
                                               ),
                                             );
-                                            if (confirmed == true && mounted)
+                                            if (confirmed == true && mounted) {
                                               perform(
                                                 () =>
                                                     service.setRole(u.id, role),
                                               );
-                                            if (mounted)
+                                            }
+                                            if (mounted) {
                                               setState(() => roleVersion++);
+                                            }
                                           },
                                   ),
                                 ),

@@ -112,6 +112,7 @@ class CampusFixApp extends StatelessWidget {
   );
   ThemeData _theme(Brightness brightness) => ThemeData(
     useMaterial3: true,
+    fontFamily: 'CampusSans',
     brightness: brightness,
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xff176b5b),
@@ -134,9 +135,10 @@ class SessionGate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthState>();
-    if (auth.loading)
+    if (auth.loading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    if (auth.error != null)
+    }
+    if (auth.error != null) {
       return Scaffold(
         body: Center(
           child: Column(
@@ -151,6 +153,7 @@ class SessionGate extends StatelessWidget {
           ),
         ),
       );
+    }
     if (auth.profile == null) return const AuthPage();
     final user = auth.profile!;
     return ChangeNotifierProvider(

@@ -22,7 +22,7 @@ class _IncidentListPageState extends State<IncidentListPage> {
   bool creating = false;
   @override
   Widget build(BuildContext context) {
-    if (creating)
+    if (creating) {
       return IncidentFormPage(
         user: widget.user,
         onDone: (id) => setState(() {
@@ -30,12 +30,14 @@ class _IncidentListPageState extends State<IncidentListPage> {
           selected = id;
         }),
       );
-    if (selected != null)
+    }
+    if (selected != null) {
       return IncidentDetailPage(
         id: selected!,
         user: widget.user,
         onBack: () => setState(() => selected = null),
       );
+    }
     final state = context.watch<IncidentState>();
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),

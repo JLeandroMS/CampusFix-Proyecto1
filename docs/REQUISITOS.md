@@ -71,4 +71,4 @@ Cada transición requiere motivo de 10 a 2000 caracteres. La prioridad inicial e
 
 Diseño Material 3 adaptable con menú lateral desde 1000 px y Drawer en anchos menores; formularios desplazables y filtros Wrap. Tema claro/oscuro. Autenticación obligatoria; autorización en Firebase; separación UI/estado/servicios/modelos; documentación Dart; commits reales y pipeline de comprobación.
 
-Las pruebas de widgets en 768 y 1440 px están escritas pero pendientes de ejecución Flutter. Las pruebas de reglas no validan la apariencia ni el build web. No se afirma un cumplimiento visual comprobado hasta completar el guion de aceptación.
+Las pruebas de widgets de acceso en 768 y 1440 px pasaron. El análisis Flutter no reporta incidencias y el build Web se generó. Las pruebas de reglas validan permisos; consulte PRUEBAS.md para distinguirlas de las comprobaciones de interfaz y de la validación pendiente en producción.

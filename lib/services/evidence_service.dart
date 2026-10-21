@@ -19,8 +19,9 @@ class EvidenceService {
     ],
   );
   Future<String> upload(String incidentId, String uid, XFile file) async {
-    if (await file.length() > maxBytes)
+    if (await file.length() > maxBytes) {
       throw ArgumentError('La imagen supera 5 MB.');
+    }
     final bytes = await file.readAsBytes();
     final png =
         bytes.length >= 8 &&
@@ -33,8 +34,9 @@ class EvidenceService {
         bytes[0] == 255 &&
         bytes[1] == 216 &&
         bytes[2] == 255;
-    if (!png && !jpeg)
+    if (!png && !jpeg) {
       throw ArgumentError('Seleccione una fotografía PNG o JPEG válida.');
+    }
     final path =
         'incidents/$incidentId/$uid/${DateTime.now().microsecondsSinceEpoch}.${png ? 'png' : 'jpg'}';
     await storage

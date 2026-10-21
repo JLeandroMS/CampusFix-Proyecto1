@@ -1,3 +1,5 @@
+// Script CLI independiente: imprime resultados e importa el dominio sin pub.
+// ignore_for_file: avoid_print, avoid_relative_lib_imports
 // Verificación local de negocio sin Flutter, sin Firebase y sin red.
 import '../lib/models/domain.dart';
 import '../lib/models/incident_policy.dart';
