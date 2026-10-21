@@ -1,0 +1,132 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test:rules
+> firebase emulators:exec --project demo-campusfix --only firestore,storage "node --test tests/*.test.mjs"
+
+⬢  emulators: firebase-tools will drop support for Java version < 21 soon in firebase-tools@15. Please install a JDK at version 21 or above to get a compatible runtime.
+i  emulators: Starting emulators: firestore, storage
+i  emulators: Detected demo project ID "demo-campusfix", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+i  firestore: Firestore Emulator logging to firestore-debug.log
+✔  firestore: Firestore Emulator UI websocket is running on 9150.
+i  Running script: node --test tests/*.test.mjs
+✔ sin sesión no se leen incidencias (2279.715345ms)
+✔ reportante lee propios pero no ajenos (317.539315ms)
+✔ consulta propia autorizada y consulta global denegada (308.216735ms)
+[2026-10-21T02:15:35.919Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f1d error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L42, evaluation error at L47:24 for 'update' @ L47, false for 'create' @ L42
+✔ registro no permite autoasignarse administrador (195.870041ms)
+✔ usuario nuevo puede registrarse reportante (143.004363ms)
+[2026-10-21T02:15:36.248Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f22 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L47:24 for 'update' @ L47, false for 'update' @ L47
+✔ perfil admite nombre pero no rol (176.083037ms)
+[2026-10-21T02:15:36.448Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f25 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L47:24 for 'update' @ L47, false for 'update' @ L47
+✔ admin cambia rol ajeno pero no el propio (200.136647ms)
+[2026-10-21T02:15:36.577Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f27 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L55:32 for 'create' @ L55, evaluation error at L55:32 for 'update' @ L55, false for 'create' @ L55
+✔ catálogo restringido a administrador (184.242698ms)
+✔ creación atómica con consecutivo e historial (147.700993ms)
+[2026-10-21T02:15:36.938Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f2c error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L71:24 for 'create' @ L71, evaluation error at L79:24 for 'update' @ L79, Service call error. Function: [getAfter], Argument: [path_value {
+  segments {
+    simple: "databases"
+  }
+  segments {
+    simple: "(default)"
+  }
+  segments {
+    simple: "documents"
+  }
+  segments {
+    simple: "counters"
+  }
+  segments {
+    simple: "incidents"
+  }
+}
+]. for 'create' @ L71
+✔ no permite crear sin contador ni auditoría (157.737423ms)
+[2026-10-21T02:15:37.041Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f2e error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, Service call error. Function: [getAfter], Argument: [path_value {
+  segments {
+    simple: "databases"
+  }
+  segments {
+    simple: "(default)"
+  }
+  segments {
+    simple: "documents"
+  }
+  segments {
+    simple: "incidents"
+  }
+  segments {
+    simple: "case"
+  }
+  segments {
+    simple: "events"
+  }
+  segments {
+    simple: "1"
+  }
+}
+]. for 'update' @ L79
+✔ no permite modificar estado sin historial (102.212657ms)
+✔ flujo principal completo conserva auditoría (451.47715ms)
+[2026-10-21T02:15:37.648Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f3d error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79
+[2026-10-21T02:15:37.693Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f3e error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79
+✔ ni admin ni otro técnico pueden iniciar atención (200.773299ms)
+[2026-10-21T02:15:37.861Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f42 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79, false for 'create' @ L94
+✔ resolver exige solución de al menos diez caracteres (167.689391ms)
+[2026-10-21T02:15:38.061Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f45 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79
+✔ no se puede cerrar directamente un reporte (199.765067ms)
+[2026-10-21T02:15:38.241Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f49 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79
+✔ no se asigna a un reportante (180.336755ms)
+[2026-10-21T02:15:38.492Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f4f error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'create' @ L94, false for 'update' @ L79
+✔ solo creador cancela antes de asignación (250.685607ms)
+✔ reapertura limpia responsable y conserva historial (177.185997ms)
+[2026-10-21T02:15:38.769Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f55 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L102
+[2026-10-21T02:15:38.810Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f56 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'delete' @ L91
+✔ auditoría inmutable y no eliminable (140.120614ms)
+[2026-10-21T02:15:38.926Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f58 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L106:26 for 'create' @ L106, false for 'update' @ L113, false for 'create' @ L106
+✔ comentario registra autor real (115.544123ms)
+[2026-10-21T02:15:39.074Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f5b error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L106:26 for 'create' @ L106, false for 'update' @ L113, false for 'create' @ L106
+✔ caso cerrado bloquea nuevos comentarios (148.466153ms)
+✔ Storage valida propietario, tipo, tamaño y lectura privada (888.208331ms)
+✔ administrador puede reasignar un caso en atención (186.623983ms)
+[2026-10-21T02:15:40.522Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f64 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79
+✔ reapertura exige limpiar técnico anterior (372.794952ms)
+✔ técnico consulta asignados o propios sin leer otros (201.494149ms)
+[2026-10-21T02:15:40.828Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f68 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79
+✔ evento falsificado no coincide con el cambio (107.779083ms)
+✔ clasificar conserva estado y registra prioridad (186.586014ms)
+[2026-10-21T02:15:41.191Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x72807f70 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L79:24 for 'update' @ L79, evaluation error at L94:26 for 'create' @ L94, false for 'update' @ L102, false for 'update' @ L79
+✔ categoría inactiva no permite asignar (173.269635ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8702.430556
+✔  Script exited successfully (code 0)
+i  emulators: Shutting down emulators.
+i  firestore: Stopping Firestore Emulator
+i  storage: Stopping Storage Emulator
+i  hub: Stopping emulator hub
+i  logging: Stopping Logging Emulator
+⚠  emulators: firebase-tools will drop support for Java version < 21 soon in firebase-tools@15. Please install a JDK at version 21 or above to get a compatible runtime.

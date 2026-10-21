@@ -79,3 +79,17 @@ test('Storage valida propietario, tipo, tamaño y lectura privada',async()=>{
  await assertFails(uploadBytes(ref(mine,'incidents/case/reporter/large.png'),new Uint8Array(5*1024*1024+1),{contentType:'image/png'}));
  await assertFails(getBytes(ref(other,path)));
 });
+test('administrador puede reasignar un caso en atención',async()=>{await seedState('enAtencion','tech');await assertSucceeds(change('admin','asignada','tech2'));});
+test('reapertura exige limpiar técnico anterior',async()=>{await seedState('cerrada','tech');await assertFails(change('admin','reabierta','tech'));});
+test('técnico consulta asignados o propios sin leer otros',async()=>{
+ const {or}=await import('firebase/firestore');await assertSucceeds(getDocs(query(collection(db('tech'),'incidents'),or(where('technicianId','==','tech'),where('creatorId','==','tech')))));
+});
+test('evento falsificado no coincide con el cambio',async()=>{
+ const d=db('admin'),b=writeBatch(d);b.update(doc(d,'incidents/case'),{status:'enRevision',revision:1,updatedAt:stamp()});b.set(doc(d,'incidents/case/events/1'),event('cerrada',null,'admin'));await assertFails(b.commit());
+});
+test('clasificar conserva estado y registra prioridad',async()=>{
+ await seedState('enRevision');const d=db('admin'),b=writeBatch(d);b.update(doc(d,'incidents/case'),{priority:'alta',revision:1,updatedAt:stamp()});b.set(doc(d,'incidents/case/events/1'),{...event('enRevision',null,'admin'),priority:'alta'});await assertSucceeds(b.commit());
+});
+test('categoría inactiva no permite asignar',async()=>{
+ await seedState('enRevision');await env.withSecurityRulesDisabled(c=>updateDoc(doc(c.firestore(),'categories/luz'),{active:false}));await assertFails(change('admin','asignada','tech'));
+});

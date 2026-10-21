@@ -1,3 +1,6 @@
 include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude: [build/**]
+linter:
+  rules:
+    curly_braces_in_flow_control: false

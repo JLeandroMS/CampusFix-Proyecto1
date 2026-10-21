@@ -27,6 +27,7 @@ service cloud.firestore {
       return (admin() && (
         (a.status == 'reportada' && b.status in ['enRevision','rechazada']) ||
         (a.status in ['enRevision','reabierta'] && b.status in ['asignada','rechazada']) ||
+        (a.status in ['asignada','enAtencion'] && b.status == 'asignada') ||
         (a.status == 'resuelta' && b.status in ['cerrada','reabierta']) ||
         (a.status == 'cerrada' && b.status == 'reabierta') ||
         (a.status in ['enRevision','reabierta'] && b.status == a.status))) ||
@@ -84,6 +85,7 @@ service cloud.firestore {
         && (request.resource.data.technicianId == resource.data.technicianId ||
           (admin() && request.resource.data.status == 'asignada' && technician(request.resource.data.technicianId)) ||
           (admin() && request.resource.data.status == 'reabierta' && request.resource.data.technicianId == null))
+        && (request.resource.data.status != 'reabierta' || request.resource.data.technicianId == null)
         && (request.resource.data.status != 'asignada' || (technician(request.resource.data.technicianId) && activeCategory(request.resource.data.categoryId)))
         && audited(id,request.resource.data);
       allow delete: if false;

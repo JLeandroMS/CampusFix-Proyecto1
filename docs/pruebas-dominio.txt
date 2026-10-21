@@ -1,0 +1,13 @@
+PASS: consecutivo con ceros
+PASS: técnico asignado inicia
+PASS: admin no inicia atención
+PASS: no salta al cierre
+PASS: admin cierra resuelta
+PASS: creador cancela reportada
+PASS: no cancela asignada
+PASS: admin reabre cerrada
+PASS: admin reasigna
+PASS: solución vacía rechazada
+PASS: total y abiertas
+PASS: agregación por categoría
+12 comprobaciones completadas.

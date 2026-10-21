@@ -8,10 +8,24 @@ class IncidentPolicy {
     final result = <IncidentStatus>[];
     if (u.role == UserRole.administrador) {
       result.addAll(switch (s) {
-        IncidentStatus.reportada => [IncidentStatus.enRevision, IncidentStatus.rechazada],
-        IncidentStatus.enRevision => [IncidentStatus.asignada, IncidentStatus.rechazada],
-        IncidentStatus.reabierta => [IncidentStatus.asignada, IncidentStatus.rechazada],
-        IncidentStatus.resuelta => [IncidentStatus.cerrada, IncidentStatus.reabierta],
+        IncidentStatus.reportada => [
+          IncidentStatus.enRevision,
+          IncidentStatus.rechazada,
+        ],
+        IncidentStatus.enRevision => [
+          IncidentStatus.asignada,
+          IncidentStatus.rechazada,
+        ],
+        IncidentStatus.reabierta => [
+          IncidentStatus.asignada,
+          IncidentStatus.rechazada,
+        ],
+        IncidentStatus.asignada ||
+        IncidentStatus.enAtencion => [IncidentStatus.asignada],
+        IncidentStatus.resuelta => [
+          IncidentStatus.cerrada,
+          IncidentStatus.reabierta,
+        ],
         IncidentStatus.cerrada => [IncidentStatus.reabierta],
         _ => <IncidentStatus>[],
       });
@@ -28,10 +42,18 @@ class IncidentPolicy {
   }
 
   /// Toda transición deja motivo; resolución exige una solución significativa.
-  static void validate(Incident i, UserProfile u, IncidentStatus target, String note) {
-    if (!allowed(i, u).contains(target)) throw StateError('Transición no autorizada.');
+  static void validate(
+    Incident i,
+    UserProfile u,
+    IncidentStatus target,
+    String note,
+  ) {
+    if (!allowed(i, u).contains(target))
+      throw StateError('Transición no autorizada.');
     if (note.trim().length < 10 || note.trim().length > 2000) {
-      throw ArgumentError('Escriba un motivo o solución de 10 a 2000 caracteres.');
+      throw ArgumentError(
+        'Escriba un motivo o solución de 10 a 2000 caracteres.',
+      );
     }
   }
 }

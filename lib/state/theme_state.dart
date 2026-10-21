@@ -7,5 +7,8 @@ class ThemeState extends ChangeNotifier {
   ThemeState(this.preferences);
   bool get dark => preferences.getBool('darkTheme') ?? false;
   ThemeMode get mode => dark ? ThemeMode.dark : ThemeMode.light;
-  Future<void> toggle() async { await preferences.setBool('darkTheme', !dark); notifyListeners(); }
+  Future<void> toggle() async {
+    await preferences.setBool('darkTheme', !dark);
+    notifyListeners();
+  }
 }

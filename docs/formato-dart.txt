@@ -1,0 +1,19 @@
+Warning: Package resolution error when reading "analysis_options.yaml" file for "lib/main.dart":
+Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include at "/workspace/scratch/c76f1258ff08/campusfix/analysis_options.yaml".
+Warning: Package resolution error when reading "analysis_options.yaml" file for "lib/models/domain.dart":
+Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include at "/workspace/scratch/c76f1258ff08/campusfix/analysis_options.yaml".
+Formatted lib/models/incident_policy.dart
+Warning: Package resolution error when reading "analysis_options.yaml" file for "lib/services/auth_service.dart":
+Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include at "/workspace/scratch/c76f1258ff08/campusfix/analysis_options.yaml".
+Formatted lib/services/incident_service.dart
+Warning: Package resolution error when reading "analysis_options.yaml" file for "lib/state/auth_state.dart":
+Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include at "/workspace/scratch/c76f1258ff08/campusfix/analysis_options.yaml".
+Formatted lib/state/incident_form_state.dart
+Warning: Package resolution error when reading "analysis_options.yaml" file for "lib/ui/admin_page.dart":
+Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include at "/workspace/scratch/c76f1258ff08/campusfix/analysis_options.yaml".
+Warning: Package resolution error when reading "analysis_options.yaml" file for "test/incident_policy_test.dart":
+Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include at "/workspace/scratch/c76f1258ff08/campusfix/analysis_options.yaml".
+Warning: Package resolution error when reading "analysis_options.yaml" file for "scripts/verify_domain.dart":
+Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include at "/workspace/scratch/c76f1258ff08/campusfix/analysis_options.yaml".
+Formatted scripts/verify_domain.dart
+Formatted 25 files (4 changed) in 0.57 seconds.

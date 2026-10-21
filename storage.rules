@@ -14,8 +14,8 @@ service firebase.storage {
         && incident(id).status in ['reportada','enRevision','asignada','enAtencion','resuelta','reabierta']
         && request.resource.size > 0 && request.resource.size <= 5 * 1024 * 1024
         && request.resource.contentType in ['image/jpeg','image/png'];
-      // Solo el propio autor puede limpiar una carga no asociada; no modificar archivos.
-      // La aplicación solo utiliza delete cuando falla la escritura del comentario.
+      // Evidencias inmutables. Un administrador puede limpiar cargas huérfanas
+      // desde la consola después de comprobar que no están asociadas.
       allow update, delete: if false;
     }
   }
