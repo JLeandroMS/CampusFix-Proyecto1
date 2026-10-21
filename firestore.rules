@@ -1,0 +1,115 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signed() { return request.auth != null; }
+    function me() { return request.auth.uid; }
+    function role() { return get(/databases/$(database)/documents/users/$(me())).data.role; }
+    function admin() { return signed() && role() == 'administrador'; }
+    function text(s, min, max) { return s is string && s.size() >= min && s.size() <= max; }
+    function visible(d) { return signed() && (admin() || d.creatorId == me() || (role() == 'tecnico' && d.technicianId == me())); }
+    function activeCategory(id) { return id is string && get(/databases/$(database)/documents/categories/$(id)).data.active == true; }
+    function technician(id) { return id is string && get(/databases/$(database)/documents/users/$(id)).data.role == 'tecnico'; }
+    function priority(p) { return p in ['baja', 'media', 'alta', 'critica']; }
+    function validIncident(d) {
+      return d.keys().hasOnly(['number','title','description','categoryId','location','priority','status','creatorId','technicianId','revision','createdAt','updatedAt'])
+        && text(d.title,5,120) && text(d.description,10,3000) && text(d.location,3,200)
+        && priority(d.priority) && d.number is int && d.number > 0 && d.revision is int;
+    }
+    // Requiere evento nuevo y coincidente en la misma operación atómica.
+    function audited(id, d) {
+      let path = /databases/$(database)/documents/incidents/$(id)/events/$(string(d.revision));
+      let e = getAfter(path).data;
+      return !exists(path) && e.authorId == me() && e.at == request.time
+        && e.status == d.status && e.technicianId == d.technicianId
+        && e.categoryId == d.categoryId && e.priority == d.priority;
+    }
+    function transition(a,b) {
+      return (admin() && (
+        (a.status == 'reportada' && b.status in ['enRevision','rechazada']) ||
+        (a.status in ['enRevision','reabierta'] && b.status in ['asignada','rechazada']) ||
+        (a.status == 'resuelta' && b.status in ['cerrada','reabierta']) ||
+        (a.status == 'cerrada' && b.status == 'reabierta') ||
+        (a.status in ['enRevision','reabierta'] && b.status == a.status))) ||
+        (role() == 'tecnico' && a.technicianId == me() && (
+          (a.status == 'asignada' && b.status == 'enAtencion') ||
+          (a.status == 'enAtencion' && b.status == 'resuelta'))) ||
+        (a.creatorId == me() && a.status in ['reportada','enRevision'] && b.status == 'cancelada');
+    }
+    match /users/{uid} {
+      allow get: if signed() && (uid == me() || admin());
+      allow list: if admin();
+      allow create: if signed() && uid == me()
+        && request.resource.data.keys().hasOnly(['name','email','role'])
+        && request.resource.data.role == 'reportante'
+        && request.resource.data.email == request.auth.token.email
+        && text(request.resource.data.name,2,80);
+      allow update: if signed() && text(request.resource.data.name,2,80) && (
+        (uid == me() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name'])) ||
+        (admin() && uid != me() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role'])
+          && request.resource.data.role in ['reportante','tecnico','administrador']));
+      allow delete: if false;
+    }
+    match /categories/{id} {
+      allow read: if signed();
+      allow create, update: if admin() && request.resource.data.keys().hasOnly(['name','active'])
+        && text(request.resource.data.name,2,80) && request.resource.data.active is bool;
+      allow delete: if false;
+    }
+    match /counters/incidents {
+      allow read: if signed();
+      allow create, update: if signed()
+        && request.resource.data.keys().hasOnly(['value','lastId'])
+        && request.resource.data.value is int
+        && request.resource.data.value == (exists(/databases/$(database)/documents/counters/incidents) ? resource.data.value + 1 : 1)
+        && !exists(/databases/$(database)/documents/incidents/$(request.resource.data.lastId))
+        && getAfter(/databases/$(database)/documents/incidents/$(request.resource.data.lastId)).data.number == request.resource.data.value
+        && getAfter(/databases/$(database)/documents/incidents/$(request.resource.data.lastId)).data.creatorId == me();
+    }
+    match /incidents/{id} {
+      allow read: if visible(resource.data);
+      allow create: if signed() && validIncident(request.resource.data)
+        && request.resource.data.creatorId == me() && request.resource.data.status == 'reportada'
+        && request.resource.data.technicianId == null && request.resource.data.priority == 'media'
+        && request.resource.data.revision == 0 && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time && activeCategory(request.resource.data.categoryId)
+        && getAfter(/databases/$(database)/documents/counters/incidents).data.lastId == id
+        && getAfter(/databases/$(database)/documents/counters/incidents).data.value == request.resource.data.number
+        && audited(id, request.resource.data);
+      allow update: if signed() && visible(resource.data) && validIncident(request.resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['categoryId','priority','status','technicianId','revision','updatedAt'])
+        && request.resource.data.revision == resource.data.revision + 1
+        && request.resource.data.updatedAt == request.time && transition(resource.data,request.resource.data)
+        && (request.resource.data.categoryId == resource.data.categoryId || (admin() && resource.data.status in ['enRevision','reabierta'] && activeCategory(request.resource.data.categoryId)))
+        && (request.resource.data.priority == resource.data.priority || (admin() && resource.data.status in ['enRevision','reabierta']))
+        && (request.resource.data.technicianId == resource.data.technicianId ||
+          (admin() && request.resource.data.status == 'asignada' && technician(request.resource.data.technicianId)) ||
+          (admin() && request.resource.data.status == 'reabierta' && request.resource.data.technicianId == null))
+        && (request.resource.data.status != 'asignada' || (technician(request.resource.data.technicianId) && activeCategory(request.resource.data.categoryId)))
+        && audited(id,request.resource.data);
+      allow delete: if false;
+      match /events/{revision} {
+        allow read: if visible(get(/databases/$(database)/documents/incidents/$(id)).data);
+        allow create: if signed()
+          && request.resource.data.keys().hasOnly(['authorId','at','status','technicianId','note','categoryId','priority'])
+          && request.resource.data.authorId == me() && request.resource.data.at == request.time
+          && text(request.resource.data.note,10,2000)
+          && revision == string(getAfter(/databases/$(database)/documents/incidents/$(id)).data.revision)
+          && getAfter(/databases/$(database)/documents/incidents/$(id)).data.updatedAt == request.time
+          && (!exists(/databases/$(database)/documents/incidents/$(id)) ||
+            getAfter(/databases/$(database)/documents/incidents/$(id)).data.revision == get(/databases/$(database)/documents/incidents/$(id)).data.revision + 1);
+        allow update, delete: if false;
+      }
+      match /comments/{commentId} {
+        allow read: if visible(get(/databases/$(database)/documents/incidents/$(id)).data);
+        allow create: if visible(get(/databases/$(database)/documents/incidents/$(id)).data)
+          && get(/databases/$(database)/documents/incidents/$(id)).data.status in ['reportada','enRevision','asignada','enAtencion','resuelta','reabierta']
+          && request.resource.data.keys().hasOnly(['authorId','at','text','evidence'])
+          && request.resource.data.authorId == me() && request.resource.data.at == request.time
+          && text(request.resource.data.text,3,2000)
+          && (request.resource.data.evidence == null ||
+            request.resource.data.evidence.matches('incidents/' + id + '/' + me() + '/[^/]+'));
+        allow update, delete: if false;
+      }
+    }
+  }
+}

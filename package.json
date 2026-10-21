@@ -1,0 +1,1 @@
+{"name":"campusfix-rules-tests","private":true,"type":"module","scripts":{"test:rules":"firebase emulators:exec --project demo-campusfix --only firestore,storage \"node --test tests/*.test.mjs\"","seed":"node scripts/seed.mjs"},"devDependencies":{"@firebase/rules-unit-testing":"^5.0.0","firebase":"^12.0.0","firebase-admin":"^13.0.0","firebase-tools":"^14.0.0"}}

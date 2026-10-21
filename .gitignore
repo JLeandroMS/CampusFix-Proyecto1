@@ -1,0 +1,10 @@
+.dart_tool/
+.packages
+build/
+.flutter-plugins*
+node_modules/
+*-debug.log
+.firebase/
+.env*
+config/firebase.json
+*service-account*.json

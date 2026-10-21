@@ -1,0 +1,22 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signed() { return request.auth != null; }
+    function profile() { return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data; }
+    function incident(id) { return firestore.get(/databases/(default)/documents/incidents/$(id)).data; }
+    function visible(id) {
+      return signed() && (profile().role == 'administrador' || incident(id).creatorId == request.auth.uid ||
+        (profile().role == 'tecnico' && incident(id).technicianId == request.auth.uid));
+    }
+    match /incidents/{id}/{uid}/{file} {
+      allow read: if visible(id);
+      allow create: if visible(id) && request.auth.uid == uid
+        && incident(id).status in ['reportada','enRevision','asignada','enAtencion','resuelta','reabierta']
+        && request.resource.size > 0 && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType in ['image/jpeg','image/png'];
+      // Solo el propio autor puede limpiar una carga no asociada; no modificar archivos.
+      // La aplicación solo utiliza delete cuando falla la escritura del comentario.
+      allow update, delete: if false;
+    }
+  }
+}
