@@ -15,6 +15,7 @@ class AdminPage extends StatefulWidget {
 class _AdminPageState extends State<AdminPage> {
   final name = TextEditingController();
   bool busy = false;
+  int roleVersion = 0;
   @override
   void dispose() {
     name.dispose();
@@ -232,7 +233,9 @@ class _AdminPageState extends State<AdminPage> {
                                 SizedBox(
                                   width: 220,
                                   child: DropdownButtonFormField<UserRole>(
-                                    key: ValueKey('${u.id}-${u.role}'),
+                                    key: ValueKey(
+                                      '${u.id}-${u.role}-$roleVersion',
+                                    ),
                                     initialValue: u.role,
                                     decoration: const InputDecoration(
                                       labelText: 'Rol',
@@ -288,7 +291,8 @@ class _AdminPageState extends State<AdminPage> {
                                                 () =>
                                                     service.setRole(u.id, role),
                                               );
-                                            if (mounted) setState(() {});
+                                            if (mounted)
+                                              setState(() => roleVersion++);
                                           },
                                   ),
                                 ),

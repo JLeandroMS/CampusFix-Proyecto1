@@ -4,7 +4,7 @@ Proyecto IF0009 · Universidad de Costa Rica, Sede del Sur · II Ciclo 2026.
 
 ## Qué recibes y qué falta verificar
 
-El código implementa las 20 historias del enunciado, incluidas las pantallas y configuración de publicación. Las reglas se probaron contra emuladores. **No se ha compilado ni desplegado la aplicación Flutter**: la revisión automática de este entorno bloqueó el arranque del SDK al detectar una solicitud a metadatos de nube. El formateador Dart sí revisó la sintaxis, pero eso no sustituye `flutter analyze`, `flutter test` ni una compilación. Los resultados exactos están en `docs/PRUEBAS.md`.
+El código cubre las funciones de las historias del enunciado y prepara la configuración de publicación. La aceptación final de las 20 historias requiere completar las verificaciones pendientes. Las reglas se probaron contra emuladores. **No se ha compilado ni desplegado la aplicación Flutter**: la revisión automática de este entorno bloqueó el arranque del SDK al detectar una solicitud a metadatos de nube. El formateador Dart sí revisó la sintaxis, pero eso no sustituye `flutter analyze`, `flutter test` ni una compilación. Los resultados exactos están en `docs/PRUEBAS.md`.
 
 No hay una URL pública ni un repositorio remoto inventados. Antes de entregar al profesor hay que ejecutar las verificaciones Flutter, conectar un proyecto Firebase propio, publicarlo y tomar capturas reales. El ZIP conserva un repositorio Git local con commits auténticos de esta implementación.
 

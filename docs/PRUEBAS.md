@@ -13,6 +13,7 @@ Fecha de ejecución: 20 de octubre de 2026 (Costa Rica).
 | flutter test (unitarias y widgets) | Escritas, no ejecutadas | test/ |
 | flutter build web | No ejecutado | Pendiente |
 | Prueba visual de app Flutter | No ejecutada | Pendiente |
+| Revisión del prototipo HTML en navegador | Pendiente; la descarga del navegador de pruebas falló | prototipo.html |
 | Publicación real y URL de Firebase Hosting | No realizada; requiere cuenta/proyecto | Pendiente |
 
 El formateador advirtió que flutter_lints no estaba resuelto porque no se completó la preparación de dependencias. Parsear y formatear no verifica tipos, compatibilidad de paquetes, renderizado ni integración completa.
