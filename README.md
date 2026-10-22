@@ -68,7 +68,16 @@ La aplicación **ya está publicada en Firebase Hosting** y conectada al proyect
 
 Se desplegaron las reglas de seguridad y los índices de Firestore; también se configuró CORS para mostrar fotografías desde los dominios de la aplicación. Se configuraron cuentas de administración y atención técnica y las categorías de incidencias.
 
-Las pruebas locales pueden emplear emuladores de Firebase, pero **el sitio publicado usa los servicios reales**. Las credenciales para evaluación se facilitan por un canal privado; las cuentas con dominio `@campusfix.test` corresponden únicamente a los emuladores.
+Las pruebas locales pueden emplear emuladores de Firebase, pero **el sitio publicado usa los servicios reales**. Las cuentas con dominio `@campusfix.test` corresponden únicamente a los emuladores.
+
+### Cuentas de acceso para evaluación
+
+| Rol | Correo electrónico | Contraseña |
+|---|---|---|
+| **Administrador** | `admin@campusfix.com` | `admin123!` |
+| **Técnico** | `tecnico@campusfix.com` | `tecnico123!` |
+
+> Estas credenciales están incluidas para la evaluación académica. Deben cambiarse o deshabilitarse al finalizar la evaluación si el repositorio es público.
 
 ## Pruebas y verificaciones
 
